@@ -1,7 +1,7 @@
 pkgbase = sonic-breeze
 	pkgdesc = Highly customizable binary Window Decoration, Application Style and Global Theme plugin for SonicDE.
-	pkgver = 6.7.4.5
-	pkgrel = 1
+	pkgver = 6.7.4.6
+	pkgrel = 2
 	url = https://github.com/Sonic-DE/sonic-breeze
 	arch = x86_64
 	groups = sonicde
@@ -33,6 +33,6 @@ pkgbase = sonic-breeze
 	depends = xdg-utils
 	conflicts = breeze-cursors
 	source = sonic-breeze-6.7.4.5.tar.gz::https://github.com/Sonic-DE/sonic-breeze/archive/refs/tags/6.7.4.5.tar.gz
-	sha256sums = 1c0e17621e8135c668ee0d6c1e69ab2b6d2db1aec4801f72eceaea0a2ee7a749
+	sha256sums = e9349076cefca58a47127f79b0afbe32883778af07d4dd73b3bdfd412ce0d427
 
 pkgname = sonic-breeze
