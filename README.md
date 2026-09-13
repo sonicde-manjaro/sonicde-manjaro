@@ -8,7 +8,7 @@ This third-party repository provides [SonicDE](https://sonicde.org) x86_64 binar
 
 ### Adding the Public Package Signing Key to pacman
 
-First, please download the public OpenPGP signing key [`sonicde-manjarolinux.asc`](https://sonicde-manjaro.github.io/sonicde-manjarolinux.asc) used to sign the packages and add it to the pacman keyring:
+First, please download the public OpenPGP signing key [`sonicde-manjarolinux.asc`](sonicde-manjarolinux.asc) used to sign the packages and add it to the pacman keyring:
 
 ```shell
 curl -O https://sonicde-manjaro.github.io/sonicde-manjarolinux.asc
@@ -21,13 +21,11 @@ You can read more about package signing on the [pacman/Package signing - ArchWik
 
 ### Adding the Repository to Pacman
 
-Once you added the public key, also add an entry for the SonicDE repository to the end of the file `/etc/pacman.conf`:
+Once you added the public key, also add an entry for the SonicDE repository to the end of the file [`/etc/pacman.conf`](https://man.archlinux.org/man/pacman.conf.5) using [`sudo`](https://wiki.archlinux.org/title/Sudo) and your favorite editor:
 
-```shell
-sudo tee -a /etc/pacman.conf <<'EOF'
+```ini
 [sonicde]
 Server = https://sonicde-manjaro.github.io/$arch
-EOF
 ```
 
 Run `pacman` to update all package indexes and installed packages:
@@ -38,21 +36,30 @@ sudo pacman -Syyu
 
 ### Installing SonicDE
 
-Installing SonicDE is as easy as installing the `sonicde-meta` package:
+If you're using KDE Wayland, you'll need to disable the Plasma Login Manager before continuing. Otherwise you may not be able to login to your graphical session anymore. To do so, use the following command:
+
+```shell
+sudo systemctl disable plasmalogin
+```
+
+Installing SonicDE itself is as easy as installing the `sonicde-meta` package:
 
 ```shell
 sudo pacman -S sonicde-meta
 ```
 
-The included packages will replace any of their installed KDE counterparts. When asked, just answer with `y `. To make use of SonicDE, log out of your desktop session and log in again.
-
-In case you get kicked out of a running KDE session while you're installing SonicDE, just re-run `pacman` after you logged in again and let it install the missing packages:
+The included packages will replace any of their installed KDE counterparts. When asked, just answer with `y`. In case you get kicked out of your graphical session while installing SonicDE on a KDE Wayland system, switch to a [text console](https://wiki.archlinux.org/title/Linux_console) via, e.g., `Ctrl+Alt+F3`, login in as your regular user and enter the following commands:
 
 ```shell
 sudo pacman -S sonicde-meta
+sudo systemctl stop plasmalogin
+sudo systemctl enable soniclogin
+sudo systemctl start soniclogin
 ```
 
-When done, start the program `System Settings` and verify that you're running SonicDE on the "About this System" page. You do? Congratulations!
+It'll enable the Sonic Login Manager and bring you back to a graphical greeter. When logged in again, start the program `System Settings` and verify that you're running SonicDE on the "About this System" page. You do? Congratulations!
+
+P.S. If you prefer SDDM or any other X11 login manager, you may keep using it. This guide just wants to make sure that every user gets back to some sort of graphical greeter.
 
 ## Getting in Contact
 
